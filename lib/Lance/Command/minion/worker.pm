@@ -1,9 +1,10 @@
-package Minion::Command::minion::worker;
+package Lance::Command::minion::worker;
+
 use Mojo::Base 'Mojolicious::Command';
 
 use Mojo::Util qw(getopt steady_time);
 
-has description => 'Start Minion worker';
+has description => 'Start alternative Minion worker';
 has usage => sub { shift->extract_usage };
 
 sub run {
@@ -91,7 +92,7 @@ sub _work {
 
 =head1 NAME
 
-Minion::Command::minion::worker - Minion worker command
+Lance::Command::minion::worker - Alternative Minion worker command
 
 =head1 SYNOPSIS
 
@@ -127,8 +128,10 @@ Minion::Command::minion::worker - Minion worker command
 
 =head1 DESCRIPTION
 
-L<Minion::Command::minion::worker> starts a L<Minion> worker. You can have as
+L<Lance::Command::minion::worker> starts a L<Minion> worker. You can have as
 many workers as you like.
+
+This is a clone of L<Minion::Command::minion::worker>.
 
 =head1 SIGNALS
 
