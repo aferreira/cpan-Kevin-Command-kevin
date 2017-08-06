@@ -1,5 +1,5 @@
 
-# Lance::Command::minion::worker
-Alternative Minion worker command
+# Kevin::Command::kevin
+Minion job queue alternative commands
 
-See [lib/Lance/Command/minion/worker.pm](https://github.com/aferreira/cpan-Lance-Command-minion-worker/blob/master/lib/lance/Command/minion/worker.pm)
+See [lib/Kevin/Command/kevin/worker.pm](https://github.com/aferreira/cpan-Kevin-Command-kevin-worker/blob/master/lib/Kevin/Command/kevin/worker.pm)
