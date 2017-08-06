@@ -1,4 +1,4 @@
-package Lance::Command::minion::worker;
+package Kevin::Command::kevin::worker;
 
 use Mojo::Base 'Mojolicious::Command';
 
@@ -92,16 +92,16 @@ sub _work {
 
 =head1 NAME
 
-Lance::Command::minion::worker - Alternative Minion worker command
+Kevin::Command::kevin::worker - Alternative Minion worker command
 
 =head1 SYNOPSIS
 
   Usage: APPLICATION minion worker [OPTIONS]
 
-    ./myapp.pl minion worker
-    ./myapp.pl minion worker -f
-    ./myapp.pl minion worker -m production -I 15 -C 5 -R 3600 -j 10
-    ./myapp.pl minion worker -q important -q default
+    ./myapp.pl kevin worker
+    ./myapp.pl kevin worker -f
+    ./myapp.pl kevin worker -m production -I 15 -C 5 -R 3600 -j 10
+    ./myapp.pl kevin worker -q important -q default
 
   Options:
     -C, --command-interval <seconds>     Worker remote control command interval,
@@ -128,7 +128,7 @@ Lance::Command::minion::worker - Alternative Minion worker command
 
 =head1 DESCRIPTION
 
-L<Lance::Command::minion::worker> starts a L<Minion> worker. You can have as
+L<Kevin::Command::kevin::worker> starts a L<Minion> worker. You can have as
 many workers as you like.
 
 This is a clone of L<Minion::Command::minion::worker>.
