@@ -1,5 +1,6 @@
 package Kevin::Command::kevin::worker;
 
+# ABSTRACT: Alternative Minion worker command
 use Mojo::Base 'Mojolicious::Command';
 
 use Mojo::Util qw(getopt steady_time);
@@ -126,10 +127,6 @@ sub _work {
 1;
 
 =encoding utf8
-
-=head1 NAME
-
-Kevin::Command::kevin::worker - Alternative Minion worker command
 
 =head1 SYNOPSIS
 

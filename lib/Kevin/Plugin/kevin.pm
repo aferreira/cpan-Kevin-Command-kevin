@@ -1,5 +1,6 @@
 package Kevin::Plugin::kevin;
 
+# ABSTRACT: Mojolicious plugin for alternative minion commands
 use Mojo::Base 'Mojolicious::Plugin';
 
 sub register {
@@ -11,10 +12,6 @@ sub register {
 1;
 
 =encoding utf8
-
-=head1 NAME
-
-Mojolicious plugin for alternative minion commands
 
 =head1 SYNOPSIS
 

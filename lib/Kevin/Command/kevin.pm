@@ -1,6 +1,6 @@
 package Kevin::Command::kevin;
 
-# ABSTRACT: Minion job queue alternative commands
+# ABSTRACT: Alternative Minion command
 use Mojo::Base 'Mojolicious::Commands';
 
 has description => 'Minion job queue alternative commands';
@@ -17,10 +17,6 @@ sub help { shift->run(@_) }
 1;
 
 =encoding utf8
-
-=head1 NAME
-
-Kevin::Command::kevin - Alternative Minion command
 
 =head1 SYNOPSIS
 
