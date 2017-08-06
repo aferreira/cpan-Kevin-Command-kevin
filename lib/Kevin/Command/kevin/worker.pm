@@ -70,22 +70,23 @@ sub _work {
         . ($self->{graceful} ? 'gracefully' : 'immediately'));
 
     # Skip hearbeats, remote command and repairs
-    delete @{$self}{qw(next_heartbeat next_command )} unless $self->{graceful};
-    delete $self->{next_repair};
+    delete @{$self}{qw(heartbeat_interval command_interval )}
+      unless $self->{graceful};
+    delete $self->{repair_interval};
   }
 
   # Send heartbeats in regular intervals
   $worker->register
     and $self->{next_heartbeat} = (steady_time + $status->{heartbeat_interval})
-    if ($self->{next_heartbeat} && $self->{next_heartbeat} < steady_time);
+    if ($self->{heartbeat_interval} && $self->{next_heartbeat} < steady_time);
 
   # Process worker remote control commands in regular intervals
   $worker->process_commands
     and $self->{next_command} = (steady_time + $status->{command_interval})
-    if ($self->{next_command} && $self->{next_command} < steady_time);
+    if ($self->{command_interval} && $self->{next_command} < steady_time);
 
   # Repair in regular intervals (randomize to avoid congestion)
-  if ($self->{next_repair} && $self->{next_repair} < steady_time) {
+  if ($self->{repair_interval} && $self->{next_repair} < steady_time) {
     $log->debug('Checking worker registry and job queue');
     $app->minion->repair;
     $self->{next_repair} = steady_time + $status->{repair_interval};
