@@ -183,6 +183,11 @@ During graceful stops, the worker stops doing repairs.
 
 =item *
 
+During a stop, when all jobs have finished, the worker
+will quit promptly (without sleeping).
+
+=item *
+
 Allow to disable repairs with C<-R 0>.
 
 =back
@@ -254,6 +259,13 @@ L<Mojolicious::Command> and implements the following new ones.
   $worker->run(@ARGV);
 
 Run this command.
+
+=head1 DEBUGGING
+
+You can set the C<KEVIN_WORKER_DEBUG> environment variable to get some
+advanced diagnostics information printed to C<< $app->log >>.
+
+  KEVIN_WORKER_DEBUG=1
 
 =head1 SEE ALSO
 
