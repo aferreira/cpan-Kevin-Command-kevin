@@ -28,9 +28,12 @@ sub run {
   $status->{repair_interval} -= int rand $status->{repair_interval} / 2;
 
   my $now = steady_time;
-  $self->{next_heartbeat} = $now;
-  $self->{next_command}   = $now;
-  $self->{next_repair}    = $fast ? $now + $status->{repair_interval} : $now;
+  $self->{next_heartbeat} = $now if $status->{heartbeat_interval};
+  $self->{next_command}   = $now if $status->{command_interval};
+  if ($status->{repair_interval}) {
+    $self->{next_repair} = $now;
+    $self->{next_repair} += $status->{repair_interval} if $fast;
+  }
 
   $self->{pid} = $$;
   local $SIG{CHLD} = sub { };
@@ -72,27 +75,27 @@ sub _work {
         . ($self->{graceful} ? 'gracefully' : 'immediately'));
 
     # Skip hearbeats, remote command and repairs
-    delete @{$self}{qw(heartbeat_interval command_interval )}
+    delete @{$status}{qw(heartbeat_interval command_interval )}
       unless $self->{graceful};
-    delete $self->{repair_interval};
+    delete $status->{repair_interval};
   }
 
   # Send heartbeats in regular intervals
-  if ($self->{heartbeat_interval} && $self->{next_heartbeat} < steady_time) {
+  if ($status->{heartbeat_interval} && $self->{next_heartbeat} < steady_time) {
     $log->debug('Sending heartbeat') if DEBUG;
     $worker->register;
     $self->{next_heartbeat} = steady_time + $status->{heartbeat_interval};
   }
 
   # Process worker remote control commands in regular intervals
-  if ($self->{command_interval} && $self->{next_command} < steady_time) {
+  if ($status->{command_interval} && $self->{next_command} < steady_time) {
     $log->debug('Checking remote control') if DEBUG;
     $worker->process_commands;
     $self->{next_command} = steady_time + $status->{command_interval};
   }
 
   # Repair in regular intervals (randomize to avoid congestion)
-  if ($self->{repair_interval} && $self->{next_repair} < steady_time) {
+  if ($status->{repair_interval} && $self->{next_repair} < steady_time) {
     $log->debug('Checking worker registry and job queue');
     $app->minion->repair;
     $self->{next_repair} = steady_time + $status->{repair_interval};
