@@ -25,12 +25,15 @@ sub run {
     'q|queue=s'              => ($status->{queues}              //= []),
     'R|repair-interval=i'    => \($status->{repair_interval}    //= 21600);
   @{$status->{queues}} = ('default') unless @{$status->{queues}};
-  $status->{repair_interval} -= int rand $status->{repair_interval} / 2;
 
   my $now = steady_time;
   $self->{next_heartbeat} = $now if $status->{heartbeat_interval};
   $self->{next_command}   = $now if $status->{command_interval};
   if ($status->{repair_interval}) {
+
+    # Randomize to avoid congestion
+    $status->{repair_interval} -= int rand $status->{repair_interval} / 2;
+
     $self->{next_repair} = $now;
     $self->{next_repair} += $status->{repair_interval} if $fast;
   }
