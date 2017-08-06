@@ -97,7 +97,7 @@ sub _work {
     $self->{next_command} = steady_time + $status->{command_interval};
   }
 
-  # Repair in regular intervals (randomize to avoid congestion)
+  # Repair in regular intervals
   if ($status->{repair_interval} && $self->{next_repair} < steady_time) {
     $log->debug('Checking worker registry and job queue');
     $app->minion->repair;
