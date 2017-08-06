@@ -1,5 +1,6 @@
 package Kevin::Command::kevin;
 
+# ABSTRACT: Minion job queue alternative commands
 use Mojo::Base 'Mojolicious::Commands';
 
 has description => 'Minion job queue alternative commands';
