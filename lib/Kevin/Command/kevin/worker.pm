@@ -7,7 +7,7 @@ use Mojo::Util qw(getopt steady_time);
 has description => 'Start alternative Minion worker';
 has usage => sub { shift->extract_usage };
 
-use constant DEBUG => $ENV{KEVIN_WORKER_DEBUG} || 0;
+use constant TRACE => $ENV{KEVIN_WORKER_TRACE} || 0;
 
 sub run {
   my ($self, @args) = @_;
@@ -85,14 +85,14 @@ sub _work {
 
   # Send heartbeats in regular intervals
   if ($status->{heartbeat_interval} && $self->{next_heartbeat} < steady_time) {
-    $log->debug('Sending heartbeat') if DEBUG;
+    $log->debug('Sending heartbeat') if TRACE;
     $worker->register;
     $self->{next_heartbeat} = steady_time + $status->{heartbeat_interval};
   }
 
   # Process worker remote control commands in regular intervals
   if ($status->{command_interval} && $self->{next_command} < steady_time) {
-    $log->debug('Checking remote control') if DEBUG;
+    $log->debug('Checking remote control') if TRACE;
     $worker->process_commands;
     $self->{next_command} = steady_time + $status->{command_interval};
   }
@@ -262,10 +262,10 @@ Run this command.
 
 =head1 DEBUGGING
 
-You can set the C<KEVIN_WORKER_DEBUG> environment variable to get some
-advanced diagnostics information printed to C<< $app->log >>.
+You can set the C<KEVIN_WORKER_TRACE> environment variable to have some
+extra diagnostics information printed to C<< $app->log >>.
 
-  KEVIN_WORKER_DEBUG=1
+  KEVIN_WORKER_TRACE=1
 
 =head1 SEE ALSO
 
