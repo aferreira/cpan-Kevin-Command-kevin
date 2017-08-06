@@ -7,6 +7,8 @@ use Mojo::Util qw(getopt steady_time);
 has description => 'Start alternative Minion worker';
 has usage => sub { shift->extract_usage };
 
+use constant DEBUG => $ENV{KEVIN_WORKER_DEBUG} || 0;
+
 sub run {
   my ($self, @args) = @_;
 
@@ -76,14 +78,18 @@ sub _work {
   }
 
   # Send heartbeats in regular intervals
-  $worker->register
-    and $self->{next_heartbeat} = (steady_time + $status->{heartbeat_interval})
-    if ($self->{heartbeat_interval} && $self->{next_heartbeat} < steady_time);
+  if ($self->{heartbeat_interval} && $self->{next_heartbeat} < steady_time) {
+    $log->debug('Sending heartbeat') if DEBUG;
+    $worker->register;
+    $self->{next_heartbeat} = steady_time + $status->{heartbeat_interval};
+  }
 
   # Process worker remote control commands in regular intervals
-  $worker->process_commands
-    and $self->{next_command} = (steady_time + $status->{command_interval})
-    if ($self->{command_interval} && $self->{next_command} < steady_time);
+  if ($self->{command_interval} && $self->{next_command} < steady_time) {
+    $log->debug('Checking remote control') if DEBUG;
+    $worker->process_commands;
+    $self->{next_command} = steady_time + $status->{command_interval};
+  }
 
   # Repair in regular intervals (randomize to avoid congestion)
   if ($self->{repair_interval} && $self->{next_repair} < steady_time) {
