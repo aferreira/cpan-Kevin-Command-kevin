@@ -165,7 +165,24 @@ Kevin::Command::kevin::worker - Alternative Minion worker command
 L<Kevin::Command::kevin::worker> starts a L<Minion> worker. You can have as
 many workers as you like.
 
-This is a clone of L<Minion::Command::minion::worker>.
+This is a clone of L<Minion::Command::minion::worker>. The differences are:
+
+=over 4
+
+=item *
+
+During immediate stops, the worker stops sending heartbeats,
+processing remote commands and doing repairs.
+
+=item *
+
+During graceful stops, the worker stops doing repairs.
+
+=item *
+
+Allow to disable repairs with C<-R 0>.
+
+=back
 
 =head1 SIGNALS
 
