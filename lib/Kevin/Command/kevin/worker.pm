@@ -127,7 +127,7 @@ Kevin::Command::kevin::worker - Alternative Minion worker command
 
 =head1 SYNOPSIS
 
-  Usage: APPLICATION minion worker [OPTIONS]
+  Usage: APPLICATION kevin worker [OPTIONS]
 
     ./myapp.pl kevin worker
     ./myapp.pl kevin worker -f
@@ -166,7 +166,7 @@ This is a clone of L<Minion::Command::minion::worker>.
 
 =head1 SIGNALS
 
-The L<Minion::Command::minion::worker> process can be controlled at runtime
+The L<Kevin::Command::kevin::worker> process can be controlled at runtime
 with the following signals.
 
 =head2 INT, TERM
@@ -179,7 +179,7 @@ Stop immediately without finishing the current jobs.
 
 =head1 REMOTE CONTROL COMMANDS
 
-The L<Minion::Command::minion::worker> process can be controlled at runtime
+The L<Kevin::Command::kevin::worker> process can be controlled at runtime
 through L<Minion::Command::minion::job>, from anywhere in the network, by
 broadcasting the following remote control commands.
 
@@ -204,7 +204,7 @@ matching the id. That means it is safe to broadcast this command to all workers.
 
 =head1 ATTRIBUTES
 
-L<Minion::Command::minion::worker> inherits all attributes from
+L<Kevin::Command::kevin::worker> inherits all attributes from
 L<Mojolicious::Command> and implements the following new ones.
 
 =head2 description
@@ -223,7 +223,7 @@ Usage information for this command, used for the help screen.
 
 =head1 METHODS
 
-L<Minion::Command::minion::worker> inherits all methods from
+L<Kevin::Command::kevin::worker> inherits all methods from
 L<Mojolicious::Command> and implements the following new ones.
 
 =head2 run
