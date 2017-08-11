@@ -10,7 +10,7 @@ See 'APPLICATION kevin help COMMAND' for more information on a specific
 command.
 EOF
 has message    => sub { shift->extract_usage . "\nCommands:\n" };
-has namespaces => sub { ['Kevin::Command::kevin'] };
+has namespaces => sub { [map "${_}::kevin", @{shift->app->commands->namespaces}] };
 
 sub help { shift->run(@_) }
 
