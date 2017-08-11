@@ -1,6 +1,6 @@
 package Kevin::Plugin::kevin;
 
-# ABSTRACT: Mojolicious plugin for alternative minion commands
+# ABSTRACT: DEPRECATED! Mojolicious plugin for alternative minion commands
 use Mojo::Base 'Mojolicious::Plugin::Kevin::Commands';
 
 1;
