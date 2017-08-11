@@ -4,7 +4,7 @@ package Kevin::Command::kevin::jobs;
 # ABSTRACT: Command to list Minion jobs
 use Mojo::Base 'Mojolicious::Command';
 
-use Kevin::Util ();
+use Kevin::Commands::Util ();
 use Mojo::Util qw(getopt);
 use Text::Yeti::Table qw(render_table);
 use Time::HiRes qw(time);
@@ -32,9 +32,8 @@ sub run {
   render_table($jobs, $spec);
 }
 
-*_created_since = *Kevin::Util::_created_since;
-
-*_job_status = *Kevin::Util::_job_status;
+*_created_since = *Kevin::Commands::Util::_created_since;
+*_job_status    = *Kevin::Commands::Util::_job_status;
 
 sub _table_spec {
 

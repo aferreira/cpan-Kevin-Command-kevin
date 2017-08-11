@@ -4,7 +4,7 @@ package Kevin::Command::kevin::workers;
 # ABSTRACT: Command to list Minion workers
 use Mojo::Base 'Mojolicious::Command';
 
-use Kevin::Util ();
+use Kevin::Commands::Util ();
 use Mojo::Util qw(getopt);
 use Text::Yeti::Table qw(render_table);
 use Time::HiRes qw(time);
@@ -29,7 +29,7 @@ sub run {
   render_table($jobs, $spec);
 }
 
-*_running_since = *Kevin::Util::_running_since;
+*_running_since = *Kevin::Commands::Util::_running_since;
 
 sub _table_spec {
   my $now = time;

@@ -1,5 +1,5 @@
 
-package Kevin::Util;
+package Kevin::Commands::Util;
 
 use Mojo::Base -strict;
 
