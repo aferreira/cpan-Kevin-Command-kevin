@@ -1,6 +1,9 @@
 
-/env
-/inc
+*.bak
+.*.swp
 
 /Kevin-Command-kevin-*.tar.gz
 /Kevin-Command-kevin-*/
+
+/env
+/inc
