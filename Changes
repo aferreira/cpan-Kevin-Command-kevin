@@ -3,6 +3,7 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+    - rename plugin to Mojolicious::Plugin::Kevin::Commands
     - Kevin::Command::kevin: compute namespaces from app namespaces
 
 v0.2.0     2017-08-10 19:33:33-07:00 America/Los_Angeles
