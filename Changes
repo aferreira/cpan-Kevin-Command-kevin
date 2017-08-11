@@ -3,6 +3,8 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+v0.3.0     2017-08-11 12:19:10-07:00 America/Los_Angeles
+
     - rename helper namespace to Kevin::Commands::Util
     - rename plugin to Mojolicious::Plugin::Kevin::Commands
     - Kevin::Command::kevin: compute namespaces from app namespaces
