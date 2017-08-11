@@ -91,15 +91,15 @@ L<Mojolicious::Command> and implements the following new ones.
 
 =head2 description
 
-  my $description = $cmd->description;
-  $cmd            = $cmd->description('Foo');
+  my $description = $command->description;
+  $command        = $command->description('Foo');
 
 Short description of this command, used for the command list.
 
 =head2 usage
 
-  my $usage = $cmd->usage;
-  $cmd      = $cmd->usage('Foo');
+  my $usage = $command->usage;
+  $command  = $command->usage('Foo');
 
 Usage information for this command, used for the help screen.
 
@@ -110,7 +110,7 @@ L<Mojolicious::Command> and implements the following new ones.
 
 =head2 run
 
-  $worker->run(@ARGV);
+  $command->run(@ARGV);
 
 Run this command.
 
