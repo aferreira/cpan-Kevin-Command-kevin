@@ -7,7 +7,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 sub register {
   my ($self, $app, $conf) = @_;
 
-  unshift @{$app->commands->namespaces}, 'Kevin::Command';
+  push @{$app->commands->namespaces}, 'Kevin::Command';
 }
 
 1;
