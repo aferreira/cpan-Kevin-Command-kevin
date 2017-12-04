@@ -3,6 +3,8 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+v0.4.1     2017-12-04 15:35:05-08:00 America/Los_Angeles
+
     - fix bug in "<time> ago" / "Up <time>" computation
 
     [develop]
