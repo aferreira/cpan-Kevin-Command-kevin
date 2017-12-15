@@ -4,18 +4,17 @@ package Minion::Worker::Role::Kevin;
 # ABSTRACT: Alternative Minion worker
 use Role::Tiny;
 
+use Mojo::Base;
 use Mojo::Log;
 use Mojo::Util 'steady_time';
 
 use constant TRACE => $ENV{KEVIN_WORKER_TRACE} || 0;
 
+# has 'defaults';
+Mojo::Base::attr(__PACKAGE__, 'defaults');
+
 # has 'log' => sub { Mojo::Log->new };
-sub log {
-  return exists $_[0]{log} ? $_[0]{log} : ($_[0]{log} = Mojo::Log->new)
-    if @_ == 1;
-  $_[0]{log} = $_[1];
-  $_[0];
-}
+Mojo::Base::attr(__PACKAGE__, 'log', sub { Mojo::Log->new });
 
 sub _defaults {
   return {
@@ -27,11 +26,16 @@ sub _defaults {
   };
 }
 
+sub _build_defaults {
+  my $self = shift;
+  return {%{$self->_defaults}, %{$self->{defaults} // {}}};
+}
+
 sub run {
   my ($self, @args) = @_;
 
   my $status = $self->status;
-  my $defaults = $self->{_defaults} //= $self->_defaults;
+  my $defaults = $self->{_defaults} //= $self->_build_defaults;
 
   $status->{$_} //= $defaults->{$_} for keys %$defaults;
   $status->{performed} //= 0;
