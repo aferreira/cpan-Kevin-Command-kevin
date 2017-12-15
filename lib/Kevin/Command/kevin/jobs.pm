@@ -26,10 +26,11 @@ sub run {
     'S|state=s'  => \$options->{state},
     't|task=s'   => \$options->{task};
 
-  my $jobs = $minion->backend->list_jobs($offset, $limit, $options);
+  my $results = $minion->backend->list_jobs($offset, $limit, $options);
+  my $items = $results->{jobs};
 
   my $spec = $self->_table_spec;
-  render_table($jobs, $spec);
+  render_table($items, $spec);
 }
 
 *_created_since = *Kevin::Commands::Util::_created_since;
