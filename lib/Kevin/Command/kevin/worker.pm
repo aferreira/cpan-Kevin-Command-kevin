@@ -10,12 +10,25 @@ has usage => sub { shift->extract_usage };
 
 use constant TRACE => $ENV{KEVIN_WORKER_TRACE} || 0;
 
+sub _worker_class {
+  my $minion = shift;
+  my $class
+    = $minion->can('worker_class') ? $minion->worker_class : 'Minion::Worker';
+  return $class if $class->DOES('Minion::Worker::Role::Kevin');
+  return $class->with_roles('Minion::Worker::Role::Kevin');
+}
+
+sub _worker {
+  my $minion = shift;
+  my $worker = _worker_class($minion)->new(minion => $minion, @_);
+  $minion->emit(worker => $worker);
+  return $worker;
+}
+
 sub run {
   my ($self, @args) = @_;
 
-  my $app    = $self->app;
-  my $worker = $self->{worker} = $app->minion->worker->with_roles('+Kevin');
-  my $status = $worker->status;
+  my $status = {};
   getopt \@args,
     'C|command-interval=i'   => \$status->{command_interval},
     'f|fast-start'           => \$status->{fast},
@@ -23,8 +36,10 @@ sub run {
     'j|jobs=i'               => \$status->{jobs},
     'q|queue=s@'             => \$status->{queues},
     'R|repair-interval=i'    => \$status->{repair_interval};
+  for (keys %$status) { delete $status->{$_} unless defined $status->{$_} }
 
-  $worker->log($app->log);
+  my $app = $self->app;
+  my $worker = _worker($app->minion, defaults => $status, log => $app->log);
   $worker->run;
 }
 
