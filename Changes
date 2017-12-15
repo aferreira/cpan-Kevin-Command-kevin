@@ -3,6 +3,12 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+v0.5.1     2017-12-14 19:39:45-08:00 America/Los_Angeles (TRIAL RELEASE)
+
+    - Restore default repair interval to 6 hours (disabled by mistake)
+    - kevin worker: allow more extensibility
+    - Minion::Worker::Role::Kevin: "defaults" attr
+
 v0.5     2017-12-14 16:04:18-08:00 America/Los_Angeles (TRIAL RELEASE)
 
     - Require Minion 8.0+
