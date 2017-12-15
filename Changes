@@ -6,6 +6,7 @@ Release history for Kevin-Command-kevin
 v0.5     2017-12-14 16:04:18-08:00 America/Los_Angeles (TRIAL RELEASE)
 
     - Require Minion 8.0+
+    - Move the worker lifecycle code to Minion::Worker::Role::Kevin
     - kevin jobs: adapt to new list_jobs() usage
     - kevin workers: adapt to new list_workers() usage
     - Remove deprecated Kevin::Plugin::kevin
