@@ -2,19 +2,16 @@
 package Minion::Worker::Role::Kevin;
 
 # ABSTRACT: Alternative Minion worker
-use Role::Tiny;
+use Mojo::Base -role;
 
-use Mojo::Base;
 use Mojo::Log;
 use Mojo::Util 'steady_time';
 
 use constant TRACE => $ENV{KEVIN_WORKER_TRACE} || 0;
 
-# has 'defaults';
-Mojo::Base::attr(__PACKAGE__, 'defaults');
+has 'defaults';
 
-# has 'log' => sub { Mojo::Log->new };
-Mojo::Base::attr(__PACKAGE__, 'log', sub { Mojo::Log->new });
+has 'log' => sub { Mojo::Log->new };
 
 sub _defaults {
   return {
