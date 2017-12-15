@@ -8,8 +8,6 @@ use Mojo::Util 'getopt';
 has description => 'Start alternative Minion worker';
 has usage => sub { shift->extract_usage };
 
-use constant TRACE => $ENV{KEVIN_WORKER_TRACE} || 0;
-
 sub _worker_class {
   my $minion = shift;
   my $class
