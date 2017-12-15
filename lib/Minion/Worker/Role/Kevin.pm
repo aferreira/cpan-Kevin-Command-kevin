@@ -22,7 +22,7 @@ sub _defaults {
     heartbeat_interval => 300,
     jobs               => 4,
     queues             => ['default'],
-    repair_interval    => 0,
+    repair_interval    => 21600,
   };
 }
 
