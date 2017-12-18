@@ -3,22 +3,16 @@ package Kevin::Command::kevin::worker;
 # ABSTRACT: Alternative Minion worker command
 use Mojo::Base 'Mojolicious::Command';
 
+use Minion::Worker;
 use Mojo::Util 'getopt';
 
 has description => 'Start alternative Minion worker';
 has usage => sub { shift->extract_usage };
 
-sub _worker_class {
-  my $minion = shift;
-  my $class
-    = $minion->can('worker_class') ? $minion->worker_class : 'Minion::Worker';
-  return $class if $class->DOES('Minion::Worker::Role::Kevin');
-  return $class->with_roles('Minion::Worker::Role::Kevin');
-}
-
 sub _worker {
   my $minion = shift;
-  my $worker = _worker_class($minion)->new(minion => $minion, @_);
+  return $minion->kevin_worker(@_) if $minion->can('kevin_worker');
+  my $worker = Minion::Worker->with_roles('+Kevin')->new(minion => $minion, @_);
   $minion->emit(worker => $worker);
   return $worker;
 }
