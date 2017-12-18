@@ -3,6 +3,10 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+v0.5.2     2017-12-18 13:09:11-08:00 America/Los_Angeles (TRIAL RELEASE)
+
+    - simplify extensibility by checking for $minion->kevin_worker method 
+
 v0.5.1     2017-12-14 19:39:45-08:00 America/Los_Angeles (TRIAL RELEASE)
 
     - Restore default repair interval to 6 hours (disabled by mistake)
