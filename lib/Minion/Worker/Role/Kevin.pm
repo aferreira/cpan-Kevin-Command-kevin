@@ -46,7 +46,7 @@ sub run {
     $status->{repair_interval} -= int rand $status->{repair_interval} / 2;
 
     $self->{next_repair} = $now;
-    $self->{next_repair} += $status->{repair_interval} if $status->{fast};
+    $self->{next_repair} += $status->{repair_interval} if delete $status->{fast_start};
   }
 
   $self->{pid} = $$;
