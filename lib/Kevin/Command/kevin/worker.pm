@@ -20,18 +20,18 @@ sub _worker {
 sub run {
   my ($self, @args) = @_;
 
-  my $status = {};
+  my $defaults = {};
   getopt \@args,
-    'C|command-interval=i'   => \$status->{command_interval},
-    'f|fast-start'           => \$status->{fast},
-    'I|heartbeat-interval=i' => \$status->{heartbeat_interval},
-    'j|jobs=i'               => \$status->{jobs},
-    'q|queue=s@'             => \$status->{queues},
-    'R|repair-interval=i'    => \$status->{repair_interval};
-  for (keys %$status) { delete $status->{$_} unless defined $status->{$_} }
+    'C|command-interval=i'   => \$defaults->{command_interval},
+    'f|fast-start'           => \$defaults->{fast_start},
+    'I|heartbeat-interval=i' => \$defaults->{heartbeat_interval},
+    'j|jobs=i'               => \$defaults->{jobs},
+    'q|queue=s@'             => \$defaults->{queues},
+    'R|repair-interval=i'    => \$defaults->{repair_interval};
+  for (keys %$defaults) { delete $defaults->{$_} unless defined $defaults->{$_} }
 
   my $app = $self->app;
-  my $worker = _worker($app->minion, defaults => $status, log => $app->log);
+  my $worker = _worker($app->minion, defaults => $defaults, log => $app->log);
   $worker->run;
 }
 
