@@ -3,6 +3,8 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+v0.5.5     2017-12-20 14:14:14-08:00 America/Los_Angeles
+
     [internal]
     - $worker->_ping(): allows override for extended health-check updates
     - $worker->_run_defaults()
