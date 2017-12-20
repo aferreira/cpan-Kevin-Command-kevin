@@ -23,16 +23,16 @@ sub _defaults {
   };
 }
 
-sub _build_defaults {
+sub _run_defaults {
   my $self = shift;
-  return {%{$self->_defaults}, %{$self->{defaults} // {}}};
+  $self->{_run_defaults} //= {%{$self->_defaults}, %{$self->{defaults} // {}}};
 }
 
 sub run {
   my ($self, @args) = @_;
 
-  my $status = $self->status;
-  my $defaults = $self->{_defaults} //= $self->_build_defaults;
+  my $status   = $self->status;
+  my $defaults = $self->_run_defaults;
 
   $status->{$_} //= $defaults->{$_} for keys %$defaults;
   $status->{performed} //= 0;
