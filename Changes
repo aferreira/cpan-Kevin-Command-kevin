@@ -3,6 +3,8 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+v0.5.4     2017-12-20 09:18:58-08:00 America/Los_Angeles
+
     - Role::Tiny should be a prereq
 
 v0.5.3     2017-12-18 16:48:10-08:00 America/Los_Angeles
