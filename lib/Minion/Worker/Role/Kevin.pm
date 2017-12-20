@@ -78,6 +78,10 @@ sub _term {
   $self->{graceful} = $graceful or kill 'KILL', keys %{$self->{jobs}};
 }
 
+sub _ping {
+  shift->register;
+}
+
 sub _work {
   my $self = shift;
 
@@ -97,7 +101,7 @@ sub _work {
   # Send heartbeats in regular intervals
   if ($status->{heartbeat_interval} && $self->{next_heartbeat} < steady_time) {
     $log->debug('Sending heartbeat') if TRACE;
-    $self->register;
+    $self->_ping;
     $self->{next_heartbeat} = steady_time + $status->{heartbeat_interval};
   }
 
