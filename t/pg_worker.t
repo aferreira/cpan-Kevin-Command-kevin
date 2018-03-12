@@ -23,7 +23,7 @@ $minion->add_task(
     $job->finish({just => 'works!'});
   }
 );
-my $worker = $minion->worker;
+my $worker = Minion::Worker->with_roles('+Kevin')->new(minion => $minion);
 $worker->on(
   dequeue => sub {
     my ($worker, $job) = @_;
