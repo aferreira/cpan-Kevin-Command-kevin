@@ -16,6 +16,7 @@ has 'log' => sub { Mojo::Log->new };
 sub _defaults {
   return {
     command_interval   => 10,
+    dequeue_timeout    => 5,
     heartbeat_interval => 300,
     jobs               => 4,
     queues             => ['default'],
@@ -128,10 +129,11 @@ sub _work {
   ++$self->{finished} and return if $self->{stopping} && !keys %{$self->{jobs}};
 
   # Wait if job limit has been reached or worker is stopping
+  my $timeout = $status->{dequeue_timeout};
   if (($status->{jobs} <= keys %$jobs) || $self->{stopping}) { sleep 1 }
 
   # Try to get more jobs
-  elsif (my $job = $self->dequeue(5 => {queues => $status->{queues}})) {
+  elsif (my $job = $self->dequeue($timeout => {queues => $status->{queues}})) {
     $jobs->{my $id = $job->id} = $job->start;
     my ($pid, $task) = ($job->pid, $job->task);
     $log->debug(qq{Process $pid is performing job "$id" with task "$task"});

@@ -23,6 +23,7 @@ sub run {
   my $defaults = {};
   getopt \@args,
     'C|command-interval=i'   => \$defaults->{command_interval},
+    'D|dequeue-timeout=i'    => \$defaults->{dequeue_timeout},
     'f|fast-start'           => \$defaults->{fast_start},
     'I|heartbeat-interval=i' => \$defaults->{heartbeat_interval},
     'j|jobs=i'               => \$defaults->{jobs},
@@ -51,6 +52,8 @@ sub run {
   Options:
     -C, --command-interval <seconds>     Worker remote control command interval,
                                          defaults to 10
+    -D, dequeue-timeout <seconds>        Maximum amount of time to wait for
+                                         jobs, defaults 5
     -f, --fast-start                     Start processing jobs as fast as
                                          possible and skip repairing on startup
     -h, --help                           Show this summary of available options

@@ -3,6 +3,10 @@ Release history for Kevin-Command-kevin
 
 {{$NEXT}}
 
+    [Minion 8.08]
+    - Added dequeue_timeout option to run method in Minion::Worker
+    - Added -D option to worker command
+
 v0.5.5     2017-12-20 14:14:14-08:00 America/Los_Angeles
 
     [internal]
