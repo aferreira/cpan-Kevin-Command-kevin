@@ -128,12 +128,13 @@ sub _work {
   # Return if worker is finished
   ++$self->{finished} and return if $self->{stopping} && !keys %{$self->{jobs}};
 
-  # Wait if job limit has been reached or worker is stopping
-  my $timeout = $status->{dequeue_timeout};
-  if (($status->{jobs} <= keys %$jobs) || $self->{stopping}) { sleep 1 }
+  # Job limit has been reached or worker is stopping
+  return $self->emit('busy')
+    if ($status->{jobs} <= keys %$jobs) || $self->{stopping};
 
   # Try to get more jobs
-  elsif (my $job = $self->dequeue($timeout => {queues => $status->{queues}})) {
+  my ($max, $queues) = @{$status}{qw(dequeue_timeout queues)};
+  if (my $job = $self->emit('wait')->dequeue($max => {queues => $queues})) {
     $jobs->{my $id = $job->id} = $job->start;
     my ($pid, $task) = ($job->pid, $job->task);
     $log->debug(qq{Process $pid is performing job "$id" with task "$task"});
